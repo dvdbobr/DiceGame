@@ -1,0 +1,19 @@
+.playerContainer {
+    background-color: greenyellow;
+    /* width: 50%; */
+    height: 100%;
+    text-align: center;
+}
+
+.diceScore {
+    width: 200px;
+    height: 200px;
+    font-size: 2rem;
+    background-color: burlywood;
+    margin-top: 70%;
+    margin-left: 30%;
+}
+
+h1 {
+    margin-top: 0;
+}

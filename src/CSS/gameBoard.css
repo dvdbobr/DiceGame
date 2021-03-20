@@ -1,0 +1,78 @@
+.gameContainer {}
+
+.gameboard {
+    position: relative;
+    display: flex;
+    width: 1000px;
+    height: 800px;
+    background-color: red;
+    margin: 1rem auto;
+}
+
+/* .buttons{
+    position: relative;
+    z-index: 10;
+} */
+
+.newGame {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 2rem;
+    left: 45%;
+}
+
+.roll {
+    position: absolute;
+    top: 85%;
+    left: 45%;
+    width: 100px;
+    height: 50px;
+}
+
+.hold {
+    position: absolute;
+    top: 75%;
+    left: 45%;
+    width: 100px;
+    height: 50px;
+}
+
+.divider {
+    position: absolute;
+    left:50%;
+    height: 100%;
+    width: 3px;
+    background-color: black;
+}
+
+.diceCotainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 40%;
+    left: 45%;
+}
+.diceCotainer img{
+    width: 100px;
+    height: 100px;
+    margin-top: 1rem;
+}
+.switchPlayer{
+    width: 100%;
+}
+.on{
+    background-color: red;
+}
+.off{
+    background-color: green;
+}
+.inputScore{
+    position: absolute;
+    width: 200px;
+    top: 92%;
+    left: 40%;
+    height: 50px;
+    font-size: 1.2rem;
+    text-align: center;
+}
