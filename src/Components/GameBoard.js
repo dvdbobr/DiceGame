@@ -14,6 +14,7 @@ const initialState = {
     player2Name: "PLAYER 2",
     hasWon: false,
     disabled: false,
+    inputPh: "input score to win"
 }
 export default class GameBoard extends Component {
 
@@ -54,11 +55,7 @@ export default class GameBoard extends Component {
             })
         }
     }
-    ChangePlayer = () => {
-        let turn = this.state.playerTurn;
-        turn = turn === 1 ? 2 : 1;
-        this.setState({ playerTurn: turn });
-    };
+
     componentDidUpdate() {
         if (this.state.playerScore1 >= this.state.pointsToWin && this.state.hasWon === false) {
             this.setState({
@@ -119,9 +116,10 @@ export default class GameBoard extends Component {
                     />
                 </div>
                 <GameScoreInput
-                    value={this.state.pointsToWin}
+                    pointsToWin={this.state.pointsToWin}
                     inputsHandler={this.gameScoreToWinHandler}
                     disabled={this.state.disabled}
+                    inputPh={this.state.inputPh}
                 />
                 <div className="diceCotainer">
                     <img src={`/Images/dice-${this.state.dice[0]}.png`} alt="" />
