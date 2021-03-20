@@ -9,6 +9,7 @@ export default class GameScoreInput extends Component {
                 name={'pointsToWin'}
                 onChange={this.props.inputsHandler}
                 className="inputScore"
+                disabled={this.props.disabled}
                 placeholder="input score to win"
             />
         )
