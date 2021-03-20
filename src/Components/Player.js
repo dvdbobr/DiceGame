@@ -16,6 +16,9 @@ export default class Player extends Component {
                 <div className="diceScore">
                     <h3>dice score</h3>
                     <h2>{this.props.diceScore}</h2>
+                    <div className="numberOfWins">
+                        win record: {this.props.winAmount}
+                    </div>
                 </div>
             </div>
         )

@@ -17,7 +17,11 @@ const initialState = {
 }
 export default class GameBoard extends Component {
 
-    state = { ...initialState }
+    state = {
+        ...initialState,
+        winAmount1: 0,
+        winAmount2: 0
+    }
     newGame = () => {
         this.setState({ ...initialState })
     }
@@ -34,64 +38,65 @@ export default class GameBoard extends Component {
             this.setState(prevState => ({ diceScore2: prevState.diceScore2 + diceTotal }))
 
         else if (this.state.dice[0] + this.state.dice[1] === 12 && this.state.playerTurn === 1) {
-            this.setState({ dice: [1, 1] })
-            this.setState({ playerTurn: 2 })
-            this.setState({ diceScore1: 0 })
-            this.setState({ hasRolled: false })
+            this.setState({
+                dice: [1, 1],
+                playerTurn: 2,
+                diceScore1: 0,
+                hasRolled: false
+            })
         }
         else if (this.state.dice[0] + this.state.dice[1] === 12 && this.state.playerTurn === 2) {
-            this.setState({ dice: [1, 1] })
-            this.setState({ playerTurn: 1 })
-            this.setState({ diceScore2: 0 })
-            this.setState({ hasRolled: false })
+            this.setState({
+                dice: [1, 1],
+                playerTurn: 1,
+                diceScore2: 0,
+                hasRolled: false
+            })
         }
     }
     ChangePlayer = () => {
         let turn = this.state.playerTurn;
         turn = turn === 1 ? 2 : 1;
-        this.setState({
-            playerTurn: turn,
-        });
+        this.setState({ playerTurn: turn });
     };
     componentDidUpdate() {
         if (this.state.playerScore1 >= this.state.pointsToWin && this.state.hasWon === false) {
-            this.setState({ hasWon: true })
-            this.setState({ player1Name: "Player 1 Wins" })
-            this.setState({ disabled: true })
+            this.setState({
+                hasWon: true,
+                player1Name: "Player 1 Wins",
+                disabled: true,
+            })
+            this.setState(prevState => ({ winAmount1: prevState.winAmount1 + 1 }))
         }
         else if (this.state.playerScore2 >= this.state.pointsToWin && this.state.hasWon === false) {
-            this.setState({ hasWon: true })
-            this.setState({ player2Name: "Player 2 Wins" })
-            this.setState({ disabled: true })
+            this.setState({
+                hasWon: true,
+                player1Name: "Player 2 Wins",
+                disabled: true,
+            })
+            this.setState(prevState => ({ winAmount2: prevState.winAmount2 + 1 }))
         }
     }
     hold = () => {
-        if (this.state.playerScore1 < this.state.pointsToWin) {
+        if (this.state.playerTurn === 1) {
+            this.setState(prevState => ({ playerScore1: prevState.playerScore1 + this.state.diceScore1 }))
+            this.setState({ diceScore1: 0 })
+            this.setState({ playerTurn: 2 })
 
-            if (this.state.playerTurn === 1) {
-                this.setState(prevState => ({ playerScore1: prevState.playerScore1 + this.state.diceScore1 }))
-                this.setState({ diceScore1: 0 })
-                this.setState({ playerTurn: 2 })
-
-            }
-            else {
-                this.setState(prevState => ({ playerScore2: prevState.playerScore2 + this.state.diceScore2 }))
-                this.setState({ diceScore2: 0 })
-                this.setState({ playerTurn: 1 })
-            }
         }
-
+        else {
+            this.setState(prevState => ({ playerScore2: prevState.playerScore2 + this.state.diceScore2 }))
+            this.setState({ diceScore2: 0 })
+            this.setState({ playerTurn: 1 })
+        }
     }
 
     gameScoreToWinHandler = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+        this.setState({ [e.target.name]: e.target.value })
     }
     render() {
         return (
             <div className="gameboard">
-                <div className="divider"></div>
                 <div className="switchPlayer">
                     <Player
                         playerName={this.state.player1Name}
@@ -99,6 +104,7 @@ export default class GameBoard extends Component {
                         diceScore={this.state.diceScore1}
                         playerTurn={this.state.playerTurn}
                         playerNumber={1}
+                        winAmount={this.state.winAmount1}
                     />
                 </div>
 
@@ -109,6 +115,7 @@ export default class GameBoard extends Component {
                         diceScore={this.state.diceScore2}
                         playerTurn={this.state.playerTurn}
                         playerNumber={2}
+                        winAmount={this.state.winAmount2}
                     />
                 </div>
                 <GameScoreInput
